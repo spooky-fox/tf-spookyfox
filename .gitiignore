@@ -4,6 +4,7 @@
 # .tfstate files
 *.tfstate
 *.tfstate.*
+terraform.tfstate.d
 
 # Crash log files
 crash.log
@@ -33,5 +34,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-.idea
-.op
+*/.idea
+*/.op
