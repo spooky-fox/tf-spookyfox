@@ -20,3 +20,10 @@ workflows:
     steps:
       - command: terraform init infra/eks-cluster
       - command: terraform apply infra/eks-cluster
+  helm:
+    description: add helm charts
+    stack: sf-uw2-dev
+    type: atmos
+    steps:
+      - command: terraform init infra/helm
+      - command: terraform apply infra/helm

@@ -5,6 +5,7 @@ import:
   - orgs/spookyfox/catalog/terraform/tfstate-backend
   - orgs/spookyfox/catalog/terraform/vpc
   - orgs/spookyfox/catalog/terraform/eks-cluster
+  - orgs/spookyfox/catalog/terraform/helm
 
 vars:
   stage: dev
