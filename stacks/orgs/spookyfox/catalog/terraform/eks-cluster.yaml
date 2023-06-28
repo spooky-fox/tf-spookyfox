@@ -1,0 +1,18 @@
+components:
+  terraform:
+    "infra/eks-cluster":
+      backend:
+        s3:
+          workspace_key_prefix: "eks-cluster"
+      settings:
+        spacelift:
+          workspace_enabled: true
+      vars:
+        enabled: true
+        name: "common"
+        availability_zones: ["us-west-2a"]
+        instance_types: ["t3.medium"]
+        desired_size: 1
+        max_size: 3
+        min_size: 1
+        kubernetes_version: "1.27"
