@@ -15,7 +15,7 @@ variable "region_availability_zones" {
   description = "List of availability zones in region, to be used as default when `availability_zones` is not supplied"
 }
 
-variable "cidr_block" {
+variable "ipv4_primary_cidr_block" {
   type        = string
   description = "VPC CIDR block"
 }

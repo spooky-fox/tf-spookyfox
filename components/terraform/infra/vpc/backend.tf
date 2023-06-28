@@ -4,7 +4,7 @@ terraform {
   backend "s3" {
     region         = "us-west-2"
     bucket         = "sf-uw2-dev"
-    key            = "terraform.tfstate"
+    key            = "vpc/terraform.tfstate"
     dynamodb_table = "sf-uw2-dev-lock"
     profile        = ""
     role_arn       = ""

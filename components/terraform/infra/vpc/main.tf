@@ -2,9 +2,7 @@
 module "vpc" {
   source  = "cloudposse/vpc/aws"
   version = "2.1.0"
-
-  cidr_block = var.cidr_block
-
+  ipv4_primary_cidr_block         = var.ipv4_primary_cidr_block
   context = module.this.context
 }
 
@@ -13,8 +11,7 @@ module "subnets" {
   version = "2.4.1"
 
   availability_zones              = var.availability_zones
-  cidr_block                      = module.vpc.vpc_cidr_block
-  igw_id                          = module.vpc.igw_id
+  igw_id                          = [module.vpc.igw_id]
   map_public_ip_on_launch         = var.map_public_ip_on_launch
   max_subnet_count                = var.max_subnet_count
   nat_gateway_enabled             = var.nat_gateway_enabled

@@ -6,3 +6,17 @@ workflows:
     steps:
       - command: terraform init infra/tfstate-backend
       - command: terraform apply infra/tfstate-backend
+  vpc:
+    description: build vpc
+    stack: sf-uw2-dev
+    type: atmos
+    steps:
+      - command: terraform init infra/vpc
+      - command: terraform apply infra/vpc
+  eks-cluster:
+    description: build eks cluster
+    stack: sf-uw2-dev
+    type: atmos
+    steps:
+      - command: terraform init infra/eks-cluster
+      - command: terraform apply infra/eks-cluster

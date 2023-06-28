@@ -11,7 +11,7 @@ components:
         enabled: true
         name: "common"
         subnet_type_tag_key: eg.io/subnet/type
-        nat_gateway_enabled: false
-        nat_instance_enabled: false
-        max_subnet_count: 1
-        availability_zones: ["us-west-2a"]
+        nat_gateway_enabled: true
+        nat_instance_enabled: true
+        max_subnet_count: 3
+        availability_zones: ["us-west-2a", "us-west-2b", "us-west-2c"]

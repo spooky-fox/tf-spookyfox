@@ -3,6 +3,8 @@ import:
   - globals/uw2-globals
   - globals/spookyfox-globals
   - orgs/spookyfox/catalog/terraform/tfstate-backend
+  - orgs/spookyfox/catalog/terraform/vpc
+  - orgs/spookyfox/catalog/terraform/eks-cluster
 
 vars:
   stage: dev
@@ -18,4 +20,4 @@ components:
   terraform:
     "infra/vpc":
       vars:
-        cidr_block: 172.20.0.0/18
+        ipv4_primary_cidr_block: 172.20.0.0/18
