@@ -1,0 +1,12 @@
+vars:
+  namespace: sf
+
+terraform:
+  vars: {}
+
+helmfile:
+  vars: {}
+
+components:
+  terraform: {}
+  helmfile: {}

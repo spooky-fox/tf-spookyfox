@@ -1,0 +1,21 @@
+import:
+  - globals/globals
+  - globals/uw2-globals
+  - globals/spookyfox-globals
+  - orgs/spookyfox/catalog/terraform/tfstate-backend
+
+vars:
+  stage: dev
+
+
+terraform:
+  vars: {}
+
+helmfile:
+  vars: {}
+
+components:
+  terraform:
+    "infra/vpc":
+      vars:
+        cidr_block: 172.20.0.0/18

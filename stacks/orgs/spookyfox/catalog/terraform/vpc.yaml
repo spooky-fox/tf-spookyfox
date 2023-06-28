@@ -1,0 +1,17 @@
+components:
+  terraform:
+    "infra/vpc":
+      backend:
+        s3:
+          workspace_key_prefix: "infra-vpc"
+      settings:
+        spacelift:
+          workspace_enabled: true
+      vars:
+        enabled: true
+        name: "common"
+        subnet_type_tag_key: eg.io/subnet/type
+        nat_gateway_enabled: false
+        nat_instance_enabled: false
+        max_subnet_count: 1
+        availability_zones: ["us-west-2a"]

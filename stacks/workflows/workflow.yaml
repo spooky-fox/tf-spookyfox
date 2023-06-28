@@ -1,7 +1,7 @@
 workflows:
   init:
     description: bootstrap environment
-    stack: mb-uw2-dev
+    stack: sf-uw2-dev
     type: atmos
     steps:
       - command: terraform init infra/tfstate-backend

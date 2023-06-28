@@ -1,0 +1,6 @@
+vars:
+  region: us-west-2
+  environment: uw2
+
+helmfile:
+  vars: {}

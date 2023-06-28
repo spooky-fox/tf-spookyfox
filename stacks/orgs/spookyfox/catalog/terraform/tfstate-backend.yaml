@@ -1,0 +1,15 @@
+components:
+  terraform:
+    "infra/tfstate-backend":
+      backend_type: s3
+      backend:
+        s3:
+          encrypt: true
+          bucket: sf-uw2-dev
+          key: terraform.tfstate
+          dynamodb_table: sf-uw2-dev
+          acl: "bucket-owner-full-control"
+          region: "us-west-2"
+      vars:
+        terraform_backend_config_file_path: "."
+        terraform_backend_config_file_name: "backend.tf"

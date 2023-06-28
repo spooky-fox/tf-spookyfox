@@ -1,0 +1,69 @@
+name: Pull Request Workflow
+on: [pull_request]
+permissions:
+  id-token: write
+  contents: read
+env:
+  AWS_ROLE: xxxxx
+  AWS_REGION: us-west-2
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - run: terraform fmt -check
+
+  get-affected-stacks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup atmos
+      uses: cloudposse/github-action-setup-atmos@1.0.1
+      with:
+        install-wrapper: true
+    - id: affected
+      name: Get affected stacks
+      uses: cloudposse/github-action-atmos-affected-stacks@1.0.1
+
+    outputs:
+      affected: ${{ steps.affected.outputs.affected }}
+      matrix: ${{ steps.affected.outputs.matrix }}
+  
+
+  terraform-plan:
+    runs-on: ubuntu-latest
+    needs: get-affected-stacks
+    strategy:
+      matrix: ${{fromJson(needs.get-affected-stacks.outputs.matrix)}}
+      fail-fast: true
+      max-parallel: 1
+
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+  
+        - name: Setup TF
+          uses: hashicorp/setup-terraform@v2
+          with:
+            terraform_version: 1.4.6
+            cli_config_credentials_token: ""
+  
+        - name: Setup atmos
+          uses: cloudposse/github-action-setup-atmos@1.0.1
+          with:
+            install-wrapper: true
+            atmos-version: 1.34.0
+  
+        - name: Assume AWS Role
+          uses: aws-actions/configure-aws-credentials@v2
+          with:
+            role-to-assume: ${{ env.AWS_ROLE }}
+            aws-region: ${{ env.AWS_REGION }}
+        
+        
+        - name: Atmos Plan
+          run: |
+            export ATMOS_LOGS_LEVEL=Trace
+            aws sts get-caller-identity
+            atmos terraform plan oidc -s platformlive-dev-uw2
