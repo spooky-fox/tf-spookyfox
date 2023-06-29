@@ -27,3 +27,11 @@ workflows:
     steps:
       - command: terraform init infra/helm
       - command: terraform apply infra/helm
+  destroy:
+    description: tear down env
+    stack: sf-uw2-dev
+    type: atmos
+    steps: 
+      - command: terraform destroy infra/helm
+      - command: terraform destroy infra/eks-cluster
+      - command: terraform destroy infra/vpc

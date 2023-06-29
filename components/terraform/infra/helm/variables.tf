@@ -130,6 +130,13 @@ variable "kubernetes_namespace" {
   default     = null
 }
 
+variable "create_namespace_with_kubernetes" {
+  type        = bool
+  description = "If set, the namespace will be created together with the release. Defaults to `false`."
+  default     = null
+}
+  
+
 variable "atomic" {
   type        = bool
   description = "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used. Defaults to `false`."

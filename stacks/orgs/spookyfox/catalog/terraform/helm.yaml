@@ -4,12 +4,13 @@ components:
       vars:
         enabled: true
         name: "helmfile"
-        repository: "https://aws.github.io/eks-charts/"
-        chart: "aws-node-termination-handler"
-        chart_version: "0.21.0"
-        create_namespace: true
-        kubernetes_namespace: "test"
+        repository: "https://charts.helm.sh/incubator"
+        chart: "raw"
+        chart_version: "0.2.5"
+        create_namespace_with_kubernetes: true
+        kubernetes_namespace: "echo"
         atomic: true
         cleanup_on_fail: true
         timeout: 300
         wait: true
+        iam_role_enabled: true

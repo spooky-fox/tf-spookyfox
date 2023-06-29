@@ -7,20 +7,24 @@ data "terraform_remote_state" "eks_cluster" {
   }
 }
 
+# data "aws_eks_cluster_auth" "kubernetes" {
+#   name = data.terraform_remote_state.eks_cluster.outputs.eks_cluster_id
+# }
 
-provider "helm" {
-  kubernetes {
-    host                   = data.terraform_remote_state.eks_cluster.outputs.eks_cluster_endpoint
-    token                  = data.terraform_remote_state.eks_cluster.outputs.kubernetes.token
-    cluster_ca_certificate = base64decode(data.terraform_remote_state.eks_cluster.outputs.eks_cluster_certificate_authority_data)
-  }
-}
 
-provider "kubernetes" {
-  host                   = data.terraform_remote_state.eks_cluster.outputs.eks_cluster_endpoint
-  token                  = data.terraform_remote_state.eks_cluster.outputs.kubernetes.token
-  cluster_ca_certificate = base64decode(data.terraform_remote_state.eks_cluster.outputs.eks_cluster_certificate_authority_data)
-}
+# provider "helm" {
+#   kubernetes {
+#     host                   = data.terraform_remote_state.eks_cluster.outputs.eks_cluster_endpoint
+#     token                  = data.aws_eks_cluster_auth.kubernetes.token
+#     cluster_ca_certificate = base64decode(data.terraform_remote_state.eks_cluster.outputs.eks_cluster_certificate_authority_data)
+#   }
+# }
+
+# provider "kubernetes" {
+#   host                   = data.terraform_remote_state.eks_cluster.outputs.eks_cluster_endpoint
+#   token                  = data.aws_eks_cluster_auth.kubernetes.token
+#   cluster_ca_certificate = base64decode(data.terraform_remote_state.eks_cluster.outputs.eks_cluster_certificate_authority_data)
+# }
 
 
 module "helm_release" {
@@ -32,7 +36,7 @@ module "helm_release" {
   chart         = var.chart
   chart_version = var.chart_version
 
-  create_namespace_with_kubernetes = var.create_namespace
+  create_namespace_with_kubernetes = var.create_namespace_with_kubernetes
   kubernetes_namespace             = var.kubernetes_namespace
   service_account_namespace        = var.kubernetes_namespace
   service_account_name             = "aws-node-termination-handler"
